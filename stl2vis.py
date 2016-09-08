@@ -1,8 +1,20 @@
 '''
+   Input:
+
    stl2vis: creates a sequence of views of a surface
    usage: stl2vis filename.stl sampling_angle
 
-   The image files then can be stiched in a gif file.
+   Output:
+
+   A sequence of frame#.png files are stored in a local folder images.
+   The image files then can be stiched in a gif file:
+
+   convert -delay 60 images/*.png brain.gif
+
+   Usage:
+
+   python stl2vis.py rh.stl 60
+
 '''
 
 
