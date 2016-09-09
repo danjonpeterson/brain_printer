@@ -14,7 +14,7 @@ echo ==================
 
 SUBJECTS_DIR=$input_dir
 
-recon-all -subjid 001 -autorecon2 -i $input_dir/*.nii*
+recon-all -subjid 001 -all -i $input_dir/*.nii*
 
 cp $surf_dir/lh.pial $temp_dir/
 cp $surf_dir/rh.pial $temp_dir/
