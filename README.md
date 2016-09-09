@@ -85,9 +85,10 @@ imagemagick www.imagemagick.org
 
 Thanks to Valentia Staneva, Matteo Visconti, Chris Madan and everyone else at #NHW16
 
-TODO:
+STILL TODO:
 - fully test freesurfer the whole way through (not done for this ~4 day project)
 - dicom support
 - smooth/decimate mesh
+- make standalone html file to contain the .gifs
 
 
