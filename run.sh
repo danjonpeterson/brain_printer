@@ -51,10 +51,12 @@ echo copying outputs to output directory
 echo ===================================
 
 cp $temp_dir/lh.stl $output_dir
-cp $temp_dir/lh.stl $output_dir
+cp $temp_dir/rh.stl $output_dir
 
+cp $temp_dir/lh.gif $output_dir
 cp $temp_dir/rh.gif $output_dir
-cp $temp_dir/rh.gif $output_dir
+
+
 
 
 
