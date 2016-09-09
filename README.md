@@ -27,14 +27,14 @@ https://www.docker.com/
 
 2) build the image from the Dockerfile, call it brain_printer
 
-> cd brain_printer
+> cd brain_printer  
 > docker build -t brain_printer .
 
 3) put your brain image (in nifti or nifti_gz format) in an empty directory, say print_my_brain/. 
 
 If your image is is DICOM format, take a look at https://www.nitrc.org/projects/dcm2nii/
 
-> mkdir print_my_brain/
+> mkdir print_my_brain/  
 > cp my_brain.nii.gz print_my_brain/
 
 4) run the docker image, mounting your newly created directory in /data
@@ -74,13 +74,10 @@ RIGHT HEMISPHERE:
 
 This was created as part of neurohackweek2016. It uses freesurfer (https://surfer.nmr.mgh.harvard.edu/) to extract the cortical surface. You really should get your own license file https://surfer.nmr.mgh.harvard.edu/fswiki/DownloadAndInstall#License and put it in your copy of the docker image.
 
-Also loaded in the docker image is:
-
-stl2pov https://github.com/timschmidt/stl2pov
-
-povray http://povray.org/
-
-imagemagick www.imagemagick.org
+Also loaded in the docker image is:  
+stl2pov https://github.com/timschmidt/stl2pov  
+povray http://povray.org/  
+imagemagick www.imagemagick.org  
 
 
 
@@ -99,10 +96,4 @@ Freesurfer can be tempermental, depending on the quality of the input image. The
 
 One user had some conneciton issues installing some of the packages during the container build. This was resolved by editing the docker config as described here:
 https://stackoverflow.com/questions/24991136/docker-build-could-not-resolve-archive-ubuntu-com-apt-get-fails-to-install-a?rq=1
-
-
-
-
-
-
 
