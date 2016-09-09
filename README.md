@@ -13,6 +13,8 @@ It also generates a rotating .gif of that .stl file so that you can see if it's 
 
 For this to work, you need a high-quality, high-resolution T1-weighted image - sometimes called an MPRAGE 
 
+The docker image itself is pretty large (>8GB) and may take a while to build. The processing itself can take more than a full day to run.
+
 
 HOW TO USE THIS REPOSITORY
 
