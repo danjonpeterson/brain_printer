@@ -4,7 +4,7 @@ input=$1
 
 output=$2
 
-temp_base=temp
+temp_base=/tmp/temp
 
 tempfile=${temp_base}.pov
 

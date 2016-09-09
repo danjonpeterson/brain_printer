@@ -4,7 +4,7 @@ input_dir=/data
 
 output_dir=/data
 
-surf_dir=$input_dir/001/surf/
+surf_dir=$input_dir/001/surf
 
 temp_dir=/tmp
 
@@ -14,7 +14,7 @@ echo ==================
 
 SUBJECTS_DIR=$input_dir
 
-recon-all -subjid 001 -autorecon2 -i /data/*.nii*
+recon-all -subjid 001 -autorecon2 -i $input_dir/*.nii*
 
 cp $surf_dir/lh.pial $temp_dir/
 cp $surf_dir/rh.pial $temp_dir/
@@ -24,7 +24,7 @@ echo converting meshes
 echo ==================
 
 mris_convert $temp_dir/lh.pial $temp_dir/lh.stl
-mris_convert $temp_dir/lh.pial $temp_dir/lh.stl
+mris_convert $temp_dir/rh.pial $temp_dir/rh.stl
 
 
 #smooth/decimate?
@@ -53,8 +53,8 @@ echo ===================================
 cp $temp_dir/lh.stl $output_dir
 cp $temp_dir/lh.stl $output_dir
 
-cp $temp_dir/rh.stl $output_dir
-cp $temp_dir/rh.stl $output_dir
+cp $temp_dir/rh.gif $output_dir
+cp $temp_dir/rh.gif $output_dir
 
 
 
