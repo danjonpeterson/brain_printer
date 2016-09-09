@@ -50,10 +50,10 @@ OUTPUTS GENERATED:
 
 If everything works well, in your new directory you should see these files:
 
-rh.stl - file for 3d printing the right hemisphere
+rh.stl - file for 3d printing the right hemisphere  
 lh.stl - likewise, for the left
 
-rh.gif - an animated gif showing you the model for the right hemisphere
+rh.gif - an animated gif showing you the model for the right hemisphere  
 lh.gif - likewise, for the left
 
 001/   - a freesurfer processing directory that has lots of information about the brain
