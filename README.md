@@ -15,7 +15,6 @@ For this to work, you need a high-quality, high-resolution T1-weighted image - s
 
 The docker image itself is pretty large (>8GB) and may take a while to build. The processing itself can take more than a full day to run.
 
-
 HOW TO USE THIS REPOSITORY
 
 1) install docker
@@ -88,9 +87,22 @@ imagemagick www.imagemagick.org
 Thanks to Valentia Staneva, Matteo Visconti, Chris Madan and everyone else at #NHW16
 
 STILL TODO:
-- fully test freesurfer the whole way through (not done for this ~4 day project)
+- fully test freesurfer the whole way through (not done for this ~4 day project - it was faked by copying files over from a completed freesurfer run)
 - dicom support
 - smooth/decimate mesh
 - make standalone html file to contain the .gifs
+
+
+KNOWN ISSUES:
+
+Freesurfer can be tempermental, depending on the quality of the input image. There is an active and searchable listerv/forum on the Freesurfer website (http://www.mail-archive.com/freesurfer@nmr.mgh.harvard.edu/).
+
+One user had some conneciton issues installing some of the packages during the container build. This was resolved by editing the docker config as described here:
+https://stackoverflow.com/questions/24991136/docker-build-could-not-resolve-archive-ubuntu-com-apt-get-fails-to-install-a?rq=1
+
+
+
+
+
 
 
