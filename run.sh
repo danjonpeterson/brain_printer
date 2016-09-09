@@ -8,34 +8,53 @@ surf_dir=$input_dir/001/surf/
 
 temp_dir=/tmp
 
-#run freesurfer
+echo ==================
+echo running freesurfer
+echo ==================
 
 SUBJECTS_DIR=$input_dir
 
-recon-all -subjid 001 -autorecon2 -i /data/*.nii.gz
+recon-all -subjid 001 -autorecon2 -i /data/*.nii*
 
 cp $surf_dir/lh.pial $temp_dir/
-cp $surf_dir/lh.pial $temp_dir/
+cp $surf_dir/rh.pial $temp_dir/
 
-#combine meshes
+echo ==================
+echo converting meshes
+echo ==================
 
-mris_convert --combinesurfs $temp_dir/lh.pial $temp_dir/rh.pial $temp_dir/brain.pial
-mris_convert $temp_dir/brain.pial $temp_dir/brain.stl
+mris_convert $temp_dir/lh.pial $temp_dir/lh.stl
+mris_convert $temp_dir/lh.pial $temp_dir/lh.stl
+
 
 #smooth/decimate?
 #TODO
 
-#convert to pov
+echo ==================
+echo converting to pov
+echo ==================
 
-/stl2pov/stl2pov $temp_dir/brain.stl > $temp_dir/brain.pov
 
-#make gif
+/stl2pov/stl2pov $temp_dir/lh.stl > $temp_dir/lh.pov
+/stl2pov/stl2pov $temp_dir/rh.stl > $temp_dir/rh.pov
 
-/brain_printer/pov2gif.sh $temp_dir/brain.pov $temp_dir/brain.gif
+echo ==================
+echo    making gif
+echo ==================
 
-#copy outputs to output directory
 
-cp $temp_dir/brain.stl $output_dir
-cp $temp_dir/brain.gif $output_dir
+/brain_printer/pov2gif.sh $temp_dir/lh.pov $temp_dir/lh.gif
+/brain_printer/pov2gif.sh $temp_dir/rh.pov $temp_dir/rh.gif
+
+echo ===================================
+echo copying outputs to output directory
+echo ===================================
+
+cp $temp_dir/lh.stl $output_dir
+cp $temp_dir/lh.stl $output_dir
+
+cp $temp_dir/rh.stl $output_dir
+cp $temp_dir/rh.stl $output_dir
+
 
 

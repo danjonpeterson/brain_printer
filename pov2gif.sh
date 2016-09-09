@@ -10,7 +10,7 @@ tempfile=${temp_base}.pov
 
 stepsize=0.1
 
-sed '/m_Visualization_Toolkit_generated_SLA_File/q' $input > $tempfile
+sed '/end\ of\ mesh/q' $input > $tempfile
 
 echo "
   global_settings { ambient_light rgb<1, 1, 1> }
