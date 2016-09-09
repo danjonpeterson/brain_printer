@@ -1,6 +1,6 @@
 # Create an image for obtaining an .stl file from an MRI volume using freesurfer
 
-
+# see https://github.com/danjonpeterson/brain_printer
 
 # start with vistalabs freesurfer image
 FROM vistalab/freesurfer
@@ -17,11 +17,6 @@ RUN apt-get install -y git \
                        libtiff5-dev \ 
                        autoconf \  
                        libboost-all-dev  
-
-#left out from template:
-#                       libopenexr-dev \
-#                       zlib1g-dev \
-#                       zip \  
 
 RUN git clone https://github.com/POV-Ray/povray.git
 WORKDIR /povray/unix
