@@ -1,0 +1,11 @@
+ENV codename=$(lsb_release -c -s)
+RUN echo "deb http://ftp.iitm.ac.in/cran/bin/linux/ubuntu $codename/" | sudo tee -a /etc/apt/sources.list > /dev/null
+RUN apt-get install software-properties-common
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
+RUN add-apt-repository ppa:marutter/rdev
+RUN apt-get update
+RUN apt-get upgrade
+RUN apt-get install r-base
+RUN echo "r <- getOption('repos'); r['CRAN'] <- 'http://cran.us.r-project.org'; options(repos = r);" > ~/.Rprofile
+RUN Rscript -e "install.packages('RcppEigen')"
+RUN Rscript -e "install.packages('Rvcg')"
