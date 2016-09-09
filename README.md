@@ -29,7 +29,9 @@ https://www.docker.com/
 > cd brain_printer
 > docker build -t brain_printer .
 
-3) put your brain image (in nifti or nifti_gz format) in an empty directory, say print_my_brain/. If your image is is DICOM format, take a look at https://www.nitrc.org/projects/dcm2nii/
+3) put your brain image (in nifti or nifti_gz format) in an empty directory, say print_my_brain/. 
+
+If your image is is DICOM format, take a look at https://www.nitrc.org/projects/dcm2nii/
 
 > mkdir print_my_brain/
 > cp my_brain.nii.gz print_my_brain/
@@ -57,9 +59,13 @@ lh.gif - likewise, for the left
 
 The .gifs look like this:
 LEFT HEMISPHERE:
+
+
 ![](https://danjonpeterson.github.io/lh.gif "Left Side")
 
 RIGHT HEMISPHERE:
+
+
 ![](https://danjonpeterson.github.io/rh.gif "Right Side")
 
 MORE ABOUT THIS REPOSITORY / DOCKER IMAGE
@@ -67,8 +73,11 @@ MORE ABOUT THIS REPOSITORY / DOCKER IMAGE
 This was created as part of neurohackweek2016. It uses freesurfer (https://surfer.nmr.mgh.harvard.edu/) to extract the cortical surface. You really should get your own license file https://surfer.nmr.mgh.harvard.edu/fswiki/DownloadAndInstall#License and put it in your copy of the docker image.
 
 Also loaded in the docker image is:
+
 stl2pov https://github.com/timschmidt/stl2pov
+
 povray http://povray.org/
+
 imagemagick www.imagemagick.org
 
 Thanks to Valentia Staneva, Matteo Visconti, Chris Madan and everyone else at #NHW16
