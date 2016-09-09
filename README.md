@@ -58,6 +58,7 @@ lh.gif - likewise, for the left
 001/   - a freesurfer processing directory that has lots of information about the brain
 
 The .gifs look like this:
+
 LEFT HEMISPHERE:
 
 
@@ -79,6 +80,8 @@ stl2pov https://github.com/timschmidt/stl2pov
 povray http://povray.org/
 
 imagemagick www.imagemagick.org
+
+
 
 Thanks to Valentia Staneva, Matteo Visconti, Chris Madan and everyone else at #NHW16
 
