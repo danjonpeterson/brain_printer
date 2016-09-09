@@ -7,11 +7,11 @@ Do you want to get an .stl file of your brain so that you can make 3D print of i
 All you need is Docker.
 
 
-This project describes the creation of a docker image that can take an MRI scan and output an .stl file suitable for 3d printing
+This project describes the creation of a docker image that can take an MRI scan and output an .stl file suitable for 3d printing.
 
 It also generates a rotating .gif of that .stl file so that you can see if it's worth printing.
 
-For this to work, you need a high-quality, high-resolution T1-weighted image - sometimes called an MPRAGE 
+For this to work, you need a high-quality, high-resolution T1-weighted image - sometimes called an MPRAGE.
 
 The docker image itself is pretty large (>8GB) and may take a while to build. The processing itself can take more than a full day to run.
 
@@ -86,14 +86,14 @@ imagemagick www.imagemagick.org
 
 Thanks to Valentia Staneva, Matteo Visconti, Chris Madan and everyone else at #NHW16
 
-###STILL TODO:
+###STILL TODO
 - fully test freesurfer the whole way through (not done for this ~4 day project - it was faked by copying files over from a completed freesurfer run)
 - dicom support
 - smooth/decimate mesh
 - make standalone html file to contain the .gifs
 
 
-###KNOWN ISSUES:
+###KNOWN ISSUES
 
 Freesurfer can be tempermental, depending on the quality of the input image. There is an active and searchable listerv/forum on the Freesurfer website (http://www.mail-archive.com/freesurfer@nmr.mgh.harvard.edu/).
 
