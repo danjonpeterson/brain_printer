@@ -25,23 +25,23 @@ https://www.docker.com/
 
 > git clone https://github.com/danjonpeterson/brain_printer.git
 
-2) build the image from the Dockerfile, call it brain_printer
+3) build the image from the Dockerfile, call it brain_printer
 
 > cd brain_printer  
 > docker build -t brain_printer .
 
-3) put your brain image (in nifti or nifti_gz format) in an empty directory, say print_my_brain/. 
+4) put your brain image (in nifti or nifti_gz format) in an empty directory, say print_my_brain/. 
 
 If your image is is DICOM format, take a look at https://www.nitrc.org/projects/dcm2nii/
 
 > mkdir print_my_brain/  
 > cp my_brain.nii.gz print_my_brain/
 
-4) run the docker image, mounting your newly created directory in /data
+5) run the docker image, mounting your newly created directory in /data
 
 > docker run -ti --rm -v /full/path/to/print_my_brain/:/data brain_printer
 
-5) from the docker image, run the script: run.sh
+6) from the docker image, run the script: run.sh
 
 > /brain_printer/run.sh
 
