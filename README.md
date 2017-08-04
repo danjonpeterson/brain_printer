@@ -15,7 +15,7 @@ For this to work, you need a high-quality, high-resolution T1-weighted image - s
 
 The docker image itself is pretty large (>8GB) and may take a while to build. The processing itself can take more than a full day to run.
 
-###HOW TO USE THIS REPOSITORY
+### HOW TO USE THIS REPOSITORY
 
 1) install docker
 
@@ -46,7 +46,7 @@ If your image is is DICOM format, take a look at https://www.nitrc.org/projects/
 > /brain_printer/run.sh
 
 
-###OUTPUTS GENERATED
+### OUTPUTS GENERATED
 
 If everything works well, in your new directory you should see these files:
 
@@ -70,7 +70,7 @@ RIGHT HEMISPHERE:
 
 ![](https://danjonpeterson.github.io/rh.gif "Right Side")
 
-###MORE ABOUT THIS REPOSITORY / DOCKER IMAGE
+### MORE ABOUT THIS REPOSITORY / DOCKER IMAGE
 
 This was created as part of neurohackweek2016. It uses freesurfer (https://surfer.nmr.mgh.harvard.edu/) to extract the cortical surface. You really should get your own license file https://surfer.nmr.mgh.harvard.edu/fswiki/DownloadAndInstall#License and put it in your copy of the docker image.
 
@@ -79,18 +79,21 @@ stl2pov https://github.com/timschmidt/stl2pov
 povray http://povray.org/  
 imagemagick www.imagemagick.org  
 
-
-
 Thanks to Valentia Staneva, Matteo Visconti, Chris Madan and everyone else at #NHW16
 
-###STILL TODO
+Writeup here:
+
+[https://doi.org/10.3897/rio.3.e13394](https://doi.org/10.3897/rio.3.e13394)
+
+
+### STILL TODO
 - fully test freesurfer the whole way through (not done for this ~4 day project - it was faked by copying files over from a completed freesurfer run)
 - dicom support
 - smooth/decimate mesh
 - make standalone html file to contain the .gifs
 
 
-###KNOWN ISSUES
+### KNOWN ISSUES
 
 Freesurfer can be tempermental, depending on the quality of the input image. There is an active and searchable listerv/forum on the Freesurfer website (http://www.mail-archive.com/freesurfer@nmr.mgh.harvard.edu/).
 
