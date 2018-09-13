@@ -63,12 +63,12 @@ The .gifs look like this:
 LEFT HEMISPHERE:
 
 
-![](https://danjonpeterson.github.io/lh.gif "Left Side")
+![](https://danjonpeterson.github.io/scratch/lh.gif "Left Side")
 
 RIGHT HEMISPHERE:
 
 
-![](https://danjonpeterson.github.io/rh.gif "Right Side")
+![](https://danjonpeterson.github.io/scratch/rh.gif "Right Side")
 
 ### MORE ABOUT THIS REPOSITORY / DOCKER IMAGE
 
