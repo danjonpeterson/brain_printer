@@ -52,7 +52,7 @@ RUN apt-get install -y imagemagick
 
 # git my repo
 WORKDIR /
-RUN git clone https://github.com/danjonpeterson/print-my-brain/
+RUN git clone https://github.com/danjonpeterson/brain_printer/
 
 
 
