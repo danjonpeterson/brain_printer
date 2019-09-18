@@ -3,8 +3,21 @@
 # see https://github.com/danjonpeterson/brain_printer
 
 # start with vistalabs freesurfer image
-FROM vistalab/freesurfer
+FROM vistalab/freesurfer-core
 
+## BEGIN INSTALL AWSCLI
+RUN apt-get update && \
+    apt-get install -y \
+        python3 \
+        python3-pip \
+        python3-setuptools \
+        groff \
+        less \
+    && pip3 install --upgrade pip \
+    && apt-get clean
+
+RUN pip3 --no-cache-dir install --upgrade awscli --ignore-installed
+## END INSTALL AWSCLI
 
 ## BEGIN INSTALL POVRAY
 RUN apt-get update
@@ -39,7 +52,7 @@ RUN apt-get install -y imagemagick
 
 # git my repo
 WORKDIR /
-RUN git clone https://github.com/danjonpeterson/brain_printer
+RUN git clone https://github.com/danjonpeterson/print-my-brain/
 
 
 

@@ -1,5 +1,8 @@
 # brain_printer
 
+NOTICE: README IS OUTDATED - NOW A PART OF THIS PROJECT: https://github.com/danjonpeterson/print-my-brain.git
+        WILL BE UPDATED SOON-ISH (once it works again)
+
 Do you have an MRI of your Brain? 
 
 Do you want to get an .stl file of your brain so that you can make 3D print of it?

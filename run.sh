@@ -1,5 +1,25 @@
 #!/bin/sh
 
+#---------variables and defaults---------#
+user=user-$(date +%Y-%m-%d_%H:%M:%S)
+testing="FALSE"
+output="S3"
+
+#------------- parsing parameters ----------------#
+
+while getopts u:tl OPT
+ do
+ case "$OPT" in
+   "u" ) user="$OPTARG";;
+   "t" ) testing="TRUE";;
+   "l" ) output="LOCAL";;
+    * )  usage_exit;;
+ esac
+done;
+
+echo user: $user
+echo testing: $testing
+
 input_dir=/data
 
 output_dir=/data
@@ -8,54 +28,91 @@ surf_dir=$input_dir/001/surf
 
 temp_dir=/tmp
 
-echo ==================
-echo running freesurfer
-echo ==================
+if [ "$testing" = "FALSE" ]; then
 
-SUBJECTS_DIR=$input_dir
+	echo ==================
+	echo running freesurfer
+	echo ==================
+	
+	SUBJECTS_DIR=$input_dir
+	
+	recon-all -subjid 001 -all -i $input_dir/*.nii*
+	
+	cp $surf_dir/lh.pial $temp_dir/
+	cp $surf_dir/rh.pial $temp_dir/
+	
+	echo ==================
+	echo converting meshes
+	echo ==================
+	
+	mris_convert $temp_dir/lh.pial $temp_dir/lh.stl
+	mris_convert $temp_dir/rh.pial $temp_dir/rh.stl
+	
+	#smooth/decimate?
+	#TODO
+	
+	echo ==================
+	echo converting to pov
+	echo ==================
+	
+	/stl2pov/stl2pov $temp_dir/lh.stl > $temp_dir/lh.pov
+	/stl2pov/stl2pov $temp_dir/rh.stl > $temp_dir/rh.pov
+	
+	echo ==================
+	echo    making gif
+	echo ==================
+	
+	/print-my-brain/docker/pov2gif.sh $temp_dir/lh.pov $temp_dir/lh.gif
+	/print-my-brain/docker/pov2gif.sh $temp_dir/rh.pov $temp_dir/rh.gif
 
-recon-all -subjid 001 -all -i $input_dir/*.nii*
-
-cp $surf_dir/lh.pial $temp_dir/
-cp $surf_dir/rh.pial $temp_dir/
-
-echo ==================
-echo converting meshes
-echo ==================
-
-mris_convert $temp_dir/lh.pial $temp_dir/lh.stl
-mris_convert $temp_dir/rh.pial $temp_dir/rh.stl
-
-
-#smooth/decimate?
-#TODO
-
-echo ==================
-echo converting to pov
-echo ==================
+	echo ===================================
+	echo copying outputs to output directory
+	echo ===================================
+	
+	cp $temp_dir/lh.stl $output_dir/${user}-lh.stl
+	cp $temp_dir/rh.stl $output_dir/${user}-rh.stl
+	
+	cp $temp_dir/lh.gif $output_dir/${user}-lh.gif
+	cp $temp_dir/rh.gif $output_dir/${user}-rh.gif
+fi
 
 
-/stl2pov/stl2pov $temp_dir/lh.stl > $temp_dir/lh.pov
-/stl2pov/stl2pov $temp_dir/rh.stl > $temp_dir/rh.pov
+if [ "$output" = "S3" ]; then
 
-echo ==================
-echo    making gif
-echo ==================
+	echo ===================================
+	echo       copying outputs to S3
+	echo ===================================
 
+	if [ "$AWS_ACCESS_KEY_ID" = "" ] || [ "$AWS_SECRET_ACCESS_KEY" = "" ]; then
+		echo ERROR: missing AWS credentials
+		exit 1
+	fi
 
-/brain_printer/pov2gif.sh $temp_dir/lh.pov $temp_dir/lh.gif
-/brain_printer/pov2gif.sh $temp_dir/rh.pov $temp_dir/rh.gif
+	aws configure set region us-west-2
 
-echo ===================================
-echo copying outputs to output directory
-echo ===================================
+	if [ "$testing" = "TRUE" ]; then
 
-cp $temp_dir/lh.stl $output_dir
-cp $temp_dir/rh.stl $output_dir
+		aws s3 cp s3://print-my-brain/output/user-djp-lh.gif $temp_dir/user-${user}-lh.gif
+		aws s3 cp s3://print-my-brain/output/user-djp-lh.stl $temp_dir/user-${user}-lh.stl
+		aws s3 cp s3://print-my-brain/output/user-djp-rh.gif $temp_dir/user-${user}-rh.gif
+		aws s3 cp s3://print-my-brain/output/user-djp-rh.stl $temp_dir/user-${user}-rh.stl
 
-cp $temp_dir/lh.gif $output_dir
-cp $temp_dir/rh.gif $output_dir
+		aws s3 cp $temp_dir/user-${user}-lh.gif s3://print-my-brain/output/user-${user}-lh.gif
+		aws s3 cp $temp_dir/user-${user}-lh.stl s3://print-my-brain/output/user-${user}-lh.stl
+		aws s3 cp $temp_dir/user-${user}-rh.gif s3://print-my-brain/output/user-${user}-rh.gif
+		aws s3 cp $temp_dir/user-${user}-rh.stl s3://print-my-brain/output/user-${user}-rh.stl
 
+	elif [ "$testing" = "FALSE" ]; then
+		aws s3 cp $output_dir/user-djp-lh.gif s3://print-my-brain/output/user-${user}-lh.gif
+		aws s3 cp $output_dir/user-djp-lh.stl s3://print-my-brain/output/user-${user}-lh.stl
+		aws s3 cp $output_dir/user-djp-rh.gif s3://print-my-brain/output/user-${user}-rh.gif
+		aws s3 cp $output_dir/user-djp-rh.stl s3://print-my-brain/output/user-${user}-rh.stl
+	else
+		echo ERROR: testing: $testing neither TRUE nor FALSE
+		exit 1
+	fi
+
+fi
 
 
 
