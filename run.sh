@@ -35,6 +35,8 @@ if [ "$mode" = "S3" ]; then
 	echo     setup AWS
 	echo ==================
 
+	mkdir -p /data
+
 	if [ "$AWS_ACCESS_KEY_ID" = "" ] || [ "$AWS_SECRET_ACCESS_KEY" = "" ]; then
 		echo ERROR: missing AWS credentials
 		exit 1
@@ -48,7 +50,7 @@ if [ "$mode" = "S3" ]; then
 		echo  reading data from s3
 		echo ======================
 
-		aws s3 cp s3://print-my-brain/input/user-${user}.nii.gz /data
+		aws s3 cp s3://print-my-brain/input/user-${user}.nii.gz /data/user-${user}.nii.gz
 
 	fi
 fi
@@ -59,7 +61,7 @@ if [ "$testing" = "FALSE" ]; then
 	echo running freesurfer
 	echo ==================
 	
-	SUBJECTS_DIR=$input_dir
+	export SUBJECTS_DIR=$input_dir
 	
 	recon-all -subjid 001 -all -i $input_dir/*.nii*
 	
