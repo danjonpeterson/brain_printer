@@ -3,7 +3,7 @@
 # see https://github.com/danjonpeterson/brain_printer
 
 # start with vistalabs freesurfer image
-FROM vistalab/freesurfer-core
+FROM vistalab/freesurfer
 
 ## BEGIN INSTALL AWSCLI
 RUN apt-get update && \
