@@ -1,9 +1,10 @@
 #!/bin/sh
+set -e
 
 #---------variables and defaults---------#
 user=user-$(date +%Y-%m-%d_%H:%M:%S)
 testing="FALSE"
-output="S3"
+mode="S3"
 
 #------------- parsing parameters ----------------#
 
@@ -12,7 +13,7 @@ while getopts u:tl OPT
  case "$OPT" in
    "u" ) user="$OPTARG";;
    "t" ) testing="TRUE";;
-   "l" ) output="LOCAL";;
+   "l" ) mode="LOCAL";;
     * )  usage_exit;;
  esac
 done;
@@ -27,6 +28,30 @@ output_dir=/data
 surf_dir=$input_dir/001/surf
 
 temp_dir=/tmp
+
+if [ "$mode" = "S3" ]; then
+
+	echo ==================
+	echo     setup AWS
+	echo ==================
+
+	if [ "$AWS_ACCESS_KEY_ID" = "" ] || [ "$AWS_SECRET_ACCESS_KEY" = "" ]; then
+		echo ERROR: missing AWS credentials
+		exit 1
+	fi
+
+	aws configure set region us-west-2
+
+	if [ "$testing" = "FALSE" ]; then
+
+		echo ======================
+		echo  reading data from s3
+		echo ======================
+
+		aws s3 cp s3://print-my-brain/input/user-${user}.nii.gz /data
+
+	fi
+fi
 
 if [ "$testing" = "FALSE" ]; then
 
@@ -77,18 +102,11 @@ if [ "$testing" = "FALSE" ]; then
 fi
 
 
-if [ "$output" = "S3" ]; then
+if [ "$mode" = "S3" ]; then
 
 	echo ===================================
 	echo       copying outputs to S3
 	echo ===================================
-
-	if [ "$AWS_ACCESS_KEY_ID" = "" ] || [ "$AWS_SECRET_ACCESS_KEY" = "" ]; then
-		echo ERROR: missing AWS credentials
-		exit 1
-	fi
-
-	aws configure set region us-west-2
 
 	if [ "$testing" = "TRUE" ]; then
 
@@ -108,7 +126,7 @@ if [ "$output" = "S3" ]; then
 		aws s3 cp $output_dir/user-djp-rh.gif s3://print-my-brain/output/user-${user}-rh.gif
 		aws s3 cp $output_dir/user-djp-rh.stl s3://print-my-brain/output/user-${user}-rh.stl
 	else
-		echo ERROR: testing: $testing neither TRUE nor FALSE
+		echo ERROR: variable testing: $testing neither TRUE nor FALSE
 		exit 1
 	fi
 
