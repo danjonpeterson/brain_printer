@@ -23,7 +23,7 @@ echo testing: $testing
 
 input_dir=/data
 
-output_dir=/data
+output_dir=/output
 
 surf_dir=$input_dir/001/surf
 
@@ -89,18 +89,18 @@ if [ "$testing" = "FALSE" ]; then
 	echo    making gif
 	echo ==================
 	
-	/print-my-brain/docker/pov2gif.sh $temp_dir/lh.pov $temp_dir/lh.gif
-	/print-my-brain/docker/pov2gif.sh $temp_dir/rh.pov $temp_dir/rh.gif
+	/brain_printer/pov2gif.sh $temp_dir/lh.pov $temp_dir/lh.gif
+	/brain_printer/pov2gif.sh $temp_dir/rh.pov $temp_dir/rh.gif
 
 	echo ===================================
 	echo copying outputs to output directory
 	echo ===================================
 	
-	cp $temp_dir/lh.stl $output_dir/${user}-lh.stl
-	cp $temp_dir/rh.stl $output_dir/${user}-rh.stl
+	cp $temp_dir/lh.stl $output_dir/user-${user}-lh.stl
+	cp $temp_dir/rh.stl $output_dir/user-${user}-rh.stl
 	
-	cp $temp_dir/lh.gif $output_dir/${user}-lh.gif
-	cp $temp_dir/rh.gif $output_dir/${user}-rh.gif
+	cp $temp_dir/lh.gif $output_dir/user-${user}-lh.gif
+	cp $temp_dir/rh.gif $output_dir/user-${user}-rh.gif
 fi
 
 
@@ -123,10 +123,10 @@ if [ "$mode" = "S3" ]; then
 		aws s3 cp $temp_dir/user-${user}-rh.stl s3://print-my-brain/output/user-${user}-rh.stl
 
 	elif [ "$testing" = "FALSE" ]; then
-		aws s3 cp $output_dir/user-djp-lh.gif s3://print-my-brain/output/user-${user}-lh.gif
-		aws s3 cp $output_dir/user-djp-lh.stl s3://print-my-brain/output/user-${user}-lh.stl
-		aws s3 cp $output_dir/user-djp-rh.gif s3://print-my-brain/output/user-${user}-rh.gif
-		aws s3 cp $output_dir/user-djp-rh.stl s3://print-my-brain/output/user-${user}-rh.stl
+		aws s3 cp $output_dir/user-${user}-lh.gif s3://print-my-brain/output/user-${user}-lh.gif
+		aws s3 cp $output_dir/user-${user}-lh.stl s3://print-my-brain/output/user-${user}-lh.stl
+		aws s3 cp $output_dir/user-${user}-rh.gif s3://print-my-brain/output/user-${user}-rh.gif
+		aws s3 cp $output_dir/user-${user}-rh.stl s3://print-my-brain/output/user-${user}-rh.stl
 	else
 		echo ERROR: variable testing: $testing neither TRUE nor FALSE
 		exit 1
