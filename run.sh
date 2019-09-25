@@ -37,10 +37,10 @@ if [ "$mode" = "S3" ]; then
 
 	mkdir -p /data
 
-	if [ "$AWS_ACCESS_KEY_ID" = "" ] || [ "$AWS_SECRET_ACCESS_KEY" = "" ]; then
-		echo ERROR: missing AWS credentials
-		exit 1
-	fi
+#	if [ "$AWS_ACCESS_KEY_ID" = "" ] || [ "$AWS_SECRET_ACCESS_KEY" = "" ]; then
+#		echo ERROR: missing AWS credentials
+#		exit 1
+#	fi
 
 	aws configure set region us-west-2
 
